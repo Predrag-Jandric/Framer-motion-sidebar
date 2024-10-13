@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export const Example = () => {
+export const RetractingSideBar = () => {
   return (
     <div className="flex bg-indigo-50">
       <Sidebar />
@@ -16,14 +16,27 @@ const Sidebar = () => {
     <nav
       className="sticky top-0 h-screen shrink-0 border-r border-slate-300 bg-white p-2"
       style={{ width: open ? "225px" : "fit-content" }}
-    ></nav>
+    >
+      <TitleSection open={open} />
+    </nav>
   );
 };
 
 const TitleSection = ({ open }) => {
   return (
     <div>
-      <button className="flex cursor-pointer items-center justify-between rounded-md transition-colors hover:bg-slate-100"></button>
+      <div className="flex cursor-pointer items-center justify-between rounded-md transition-colors hover:bg-slate-100">
+        <div className="flex items-center gap-2">
+          <Logo />
+
+          {open && (
+            <div>
+              <span className="block text-xs font-semibold">Is loading</span>
+              <span className="block text-xs text-slate-500">pro plan</span>
+            </div>
+          )}
+        </div>
+      </div>
     </div>
   );
 };

@@ -1,7 +1,9 @@
+import {RetractingSideBar} from "./RetractingSideBar"
+
 function App() {
   return (
     <div>
-      <p className="w-52">VITE + REACT</p>
+      <RetractingSideBar/>
     </div>
   );
 }
