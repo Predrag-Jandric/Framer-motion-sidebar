@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { FaChevronDown } from "react-icons/fa";
 
 export const RetractingSideBar = () => {
   return (
@@ -18,9 +19,25 @@ const Sidebar = () => {
       style={{ width: open ? "225px" : "fit-content" }}
     >
       <TitleSection open={open} />
+
+      <div className="space-y-1">
+
+      </div>
     </nav>
   );
 };
+
+const Option = ({Icon, title, selected, setSelected, open, notifs}) => {
+  return (
+    <button className={`relative flex h-10 w-full items-center rounded-md transition-colors ${selected === title ? "bg-indigo-100 text-indigo-800" : "text-indigo-500 hover:bg-slate-100"}`}>
+    
+
+    <div className="grid h-full w-10 place-content-center text-lg">
+      <Icon/>
+    </div>
+    </button>
+  )
+}
 
 const TitleSection = ({ open }) => {
   return (
@@ -36,6 +53,7 @@ const TitleSection = ({ open }) => {
             </div>
           )}
         </div>
+        {open && <FaChevronDown className="mr-2" />}
       </div>
     </div>
   );
