@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { FaChevronDown } from "react-icons/fa";
+import { motion } from "framer-motion";
 
 export const RetractingSideBar = () => {
   return (
@@ -15,7 +16,8 @@ const Sidebar = () => {
   const [selected, setSelected] = useState("Dashboard");
 
   return (
-    <nav
+    <motion.nav
+      layout
       className="sticky top-0 h-screen shrink-0 border-r border-slate-300 bg-white p-2"
       style={{ width: open ? "225px" : "fit-content" }}
     >
@@ -46,13 +48,14 @@ const Sidebar = () => {
       </div>
 
       <ToggleClose open={open} setOpen={setOpen} />
-    </nav>
+    </motion.nav>
   );
 };
 
 const Option = ({ Icon, title, selected, setSelected, open, notifs = 4 }) => {
   return (
-    <button
+    <motion.button
+      layout
       onClick={() => setSelected(title)}
       className={`relative flex h-10 w-full items-center rounded-md transition-colors ${
         selected === title
@@ -60,20 +63,35 @@ const Option = ({ Icon, title, selected, setSelected, open, notifs = 4 }) => {
           : "text-indigo-500 hover:bg-slate-100"
       }`}
     >
-      <div className="grid h-full w-10 place-content-center text-lg">
+      <motion.div
+        layout
+        className="grid h-full w-10 place-content-center text-lg"
+      >
         <Icon />
-      </div>
-      {open && <span className="text-xs font-medium">{title}</span>}
+      </motion.div>
+      {open && (
+        <motion.span
+          initial={{ opacity: 0, x: 12 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ delay: 0.125 }}
+          className="text-xs font-medium"
+        >
+          {title}
+        </motion.span>
+      )}
 
       {notifs && open && (
-        <span
+        <motion.span
+          initial={{ scale: 0, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ delay: 0.3 }}
           className="absolute right-2 top-1/2 size-4 rounded bg-indigo-500 text-xs text-white"
-          style={{ transform: "translateY(-50%)" }}
+          style={{ y: "-50%" }}
         >
           {notifs}
-        </span>
+        </motion.span>
       )}
-    </button>
+    </motion.button>
   );
 };
 
@@ -85,10 +103,15 @@ const TitleSection = ({ open }) => {
           <Logo />
 
           {open && (
-            <div>
+            <motion.div
+              layout
+              initial={{ opacity: 0, x: 12 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.125 }}
+            >
               <span className="block text-xs font-semibold">Is loading</span>
               <span className="block text-xs text-slate-500">pro plan</span>
-            </div>
+            </motion.div>
           )}
         </div>
         {open && <FaChevronDown className="mr-2" />}
@@ -101,7 +124,10 @@ const ExampleContent = () => <div className="h-[200vh] w-full"></div>;
 
 const Logo = () => {
   return (
-    <div className="grid size-10 shrink-0 place-content-center rounded-md bg-indigo-600">
+    <motion.div
+      layout
+      className="grid size-10 shrink-0 place-content-center rounded-md bg-indigo-600"
+    >
       <svg
         id="logo-35"
         width="50"
@@ -122,25 +148,39 @@ const Logo = () => {
           fill="#312ECB"
         ></path>{" "}
       </svg>
-    </div>
+    </motion.div>
   );
 };
 
 const ToggleClose = ({ open, setOpen }) => {
   return (
-    <button
+    <motion.button
+      layout
       onClick={() => setOpen((pv) => !pv)}
       className="absolute bottom-0 left-0 right-0 border-t border-slate-300 transition-colors hover:bg-slate-100"
     >
       <div className="flex items-center p-2">
-        <div className="grid size-10 place-content-center text-lg">
+        <motion.div
+          layout
+          className="grid size-10 place-content-center text-lg"
+        >
           <FaChevronDown
             className={`transition-transform ${open && "rotate-180"}`}
           />
-        </div>
+        </motion.div>
 
-        {open && <span className="text-xs font-medium">Hide</span>}
+        {open && (
+          <motion.span
+            layout
+            initial={{ opacity: 0, x: 12 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.125 }}
+            className="text-xs font-medium"
+          >
+            Hide
+          </motion.span>
+        )}
       </div>
-    </button>
+    </motion.button>
   );
 };
