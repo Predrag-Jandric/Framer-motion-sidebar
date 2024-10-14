@@ -12,6 +12,7 @@ export const RetractingSideBar = () => {
 
 const Sidebar = () => {
   const [open, setOpen] = useState(true);
+  const [selected, setSelected] = useState("Dashboard");
 
   return (
     <nav
@@ -21,23 +22,60 @@ const Sidebar = () => {
       <TitleSection open={open} />
 
       <div className="space-y-1">
-
+        <Option
+          Icon={FaChevronDown}
+          title="Dashboard"
+          selected={selected}
+          setSelected={setSelected}
+          open={open}
+        />
+        <Option
+          Icon={FaChevronDown}
+          title="Tags"
+          selected={selected}
+          setSelected={setSelected}
+          open={open}
+        />
+        <Option
+          Icon={FaChevronDown}
+          title="Mode"
+          selected={selected}
+          setSelected={setSelected}
+          open={open}
+        />
       </div>
+
+      
     </nav>
   );
 };
 
-const Option = ({Icon, title, selected, setSelected, open, notifs}) => {
+const Option = ({ Icon, title, selected, setSelected, open, notifs = 4 }) => {
   return (
-    <button className={`relative flex h-10 w-full items-center rounded-md transition-colors ${selected === title ? "bg-indigo-100 text-indigo-800" : "text-indigo-500 hover:bg-slate-100"}`}>
-    
+    <button
+      onClick={() => setSelected(title)}
+      className={`relative flex h-10 w-full items-center rounded-md transition-colors ${
+        selected === title
+          ? "bg-indigo-100 text-indigo-800"
+          : "text-indigo-500 hover:bg-slate-100"
+      }`}
+    >
+      <div className="grid h-full w-10 place-content-center text-lg">
+        <Icon />
+      </div>
+      {open && <span className="text-xs font-medium">{title}</span>}
 
-    <div className="grid h-full w-10 place-content-center text-lg">
-      <Icon/>
-    </div>
+      {notifs && open && (
+        <span
+          className="absolute right-2 top-1/2 size-4 rounded bg-indigo-500 text-xs text-white"
+          style={{ transform: "translateY(-50%)" }}
+        >
+          {notifs}
+        </span>
+      )}
     </button>
-  )
-}
+  );
+};
 
 const TitleSection = ({ open }) => {
   return (
@@ -87,3 +125,4 @@ const Logo = () => {
     </div>
   );
 };
+
