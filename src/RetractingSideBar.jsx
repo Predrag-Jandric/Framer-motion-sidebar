@@ -1,12 +1,11 @@
 import { useState } from "react";
-import { FaChevronDown } from "react-icons/fa";
 import { motion } from "framer-motion";
+import { BsAirplane, BsClouds, BsMagnet, BsArrowRight } from "react-icons/bs";
 
 export const RetractingSideBar = () => {
   return (
     <div className="flex bg-indigo-50">
       <Sidebar />
-      <ExampleContent />
     </div>
   );
 };
@@ -25,21 +24,21 @@ const Sidebar = () => {
 
       <div className="space-y-1">
         <Option
-          Icon={FaChevronDown}
+          Icon={BsAirplane}
           title="Dashboard"
           selected={selected}
           setSelected={setSelected}
           open={open}
         />
         <Option
-          Icon={FaChevronDown}
+          Icon={BsClouds}
           title="Tags"
           selected={selected}
           setSelected={setSelected}
           open={open}
         />
         <Option
-          Icon={FaChevronDown}
+          Icon={BsMagnet}
           title="Mode"
           selected={selected}
           setSelected={setSelected}
@@ -52,7 +51,7 @@ const Sidebar = () => {
   );
 };
 
-const Option = ({ Icon, title, selected, setSelected, open, notifs = 4 }) => {
+const Option = ({ Icon, title, selected, setSelected, open }) => {
   return (
     <motion.button
       layout
@@ -79,18 +78,6 @@ const Option = ({ Icon, title, selected, setSelected, open, notifs = 4 }) => {
           {title}
         </motion.span>
       )}
-
-      {notifs && open && (
-        <motion.span
-          initial={{ scale: 0, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ delay: 0.3 }}
-          className="absolute right-2 top-1/2 size-4 rounded bg-indigo-500 text-xs text-white"
-          style={{ y: "-50%" }}
-        >
-          {notifs}
-        </motion.span>
-      )}
     </motion.button>
   );
 };
@@ -98,7 +85,7 @@ const Option = ({ Icon, title, selected, setSelected, open, notifs = 4 }) => {
 const TitleSection = ({ open }) => {
   return (
     <div>
-      <div className="flex cursor-pointer items-center justify-between rounded-md transition-colors hover:bg-slate-100">
+      <div className="mb-2 flex cursor-pointer items-center justify-between rounded-md transition-colors hover:bg-slate-100">
         <div className="flex items-center gap-2">
           <Logo />
 
@@ -109,18 +96,14 @@ const TitleSection = ({ open }) => {
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.125 }}
             >
-              <span className="block text-xs font-semibold">Is loading</span>
-              <span className="block text-xs text-slate-500">pro plan</span>
+              <span className="block font-semibold">Company XYZ</span>
             </motion.div>
           )}
         </div>
-        {open && <FaChevronDown className="mr-2" />}
       </div>
     </div>
   );
 };
-
-const ExampleContent = () => <div className="h-[200vh] w-full"></div>;
 
 const Logo = () => {
   return (
@@ -164,7 +147,7 @@ const ToggleClose = ({ open, setOpen }) => {
           layout
           className="grid size-10 place-content-center text-lg"
         >
-          <FaChevronDown
+          <BsArrowRight
             className={`transition-transform ${open && "rotate-180"}`}
           />
         </motion.div>
